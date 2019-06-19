@@ -104,6 +104,18 @@ join.columns = ['trans', 'tag1', 'tagml']
 join.tagml = np.where(join.tagml=='',  join.tag1, join.tagml)
 
 
+###################
+for i in range (0, len (join.index)):
+    if (join.tagml[i]==''):
+        sentences = join.iloc[i,0]
+        if ' dot' in sentences:
+            before_keyword, keyword, after_keyword = sentences.partition('dot')
+            first, *middle, last = before_keyword.split()
+            join.tagml[i] =last
+
+
+
+
 from spacy import displacy
 displacy.render (nlp(corpusupper[1]), style= 'ent')
 
