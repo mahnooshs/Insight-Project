@@ -101,10 +101,6 @@ join = pd.concat([pd.DataFrame(corpus), pd.DataFrame(corpusl), pd.DataFrame(tagg
 
 join.columns = ['trans', 'tag1', 'tagml']
 
-join.tagml = np.where(join.tagml=='',  join.tag1, join.tagml)
-
-
-###################
 for i in range (0, len (join.index)):
     if (join.tagml[i]==''):
         sentences = join.iloc[i,0]
@@ -114,7 +110,10 @@ for i in range (0, len (join.index)):
             join.tagml[i] =last
 
 
+join.tagml = np.where(join.tagml=='',  join.tag1, join.tagml)
 
+
+###################
 
 from spacy import displacy
 displacy.render (nlp(corpusupper[1]), style= 'ent')
