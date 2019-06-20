@@ -63,7 +63,7 @@ for i in range (0,len(corpus)):
     corpusl.append(label)
 
 
-data= pd.DataFrame (corpusl)
+data = pd.DataFrame (corpusl)
 import numpy as np
 np.array(data[0]=='').sum()
 
@@ -75,7 +75,7 @@ np.array(data[0]=='').sum()
     
 corpusupper=[]
 for i in range(0,len(dataset.index)):
-    review= dataset['Review'][i].translate(str.maketrans('', '', string.punctuation))
+    review = dataset['Review'][i].translate(str.maketrans('', '', string.punctuation))
     corpusupper.append(review)
 
 import spacy
@@ -96,7 +96,7 @@ np.array(data[0]=='').sum()
 
 
 
-join=pd.concat([pd.DataFrame(corpus), pd.DataFrame(corpusl), pd.DataFrame(taggi),], axis=1)
+join = pd.concat([pd.DataFrame(corpus), pd.DataFrame(corpusl), pd.DataFrame(taggi),], axis=1)
 
 
 join.columns = ['trans', 'tag1', 'tagml']
@@ -110,7 +110,7 @@ for i in range (0, len(join.index)):
             join.tagml[i] =last
 
 
-join.tagml=np.where(join.tagml=='',  join.tag1, join.tagml)
+join.tagml = np.where(join.tagml=='',  join.tag1, join.tagml)
 
 
 ###################
