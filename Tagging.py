@@ -63,7 +63,7 @@ for i in range (0,len(corpus)):
     corpusl.append(label)
 
 
-data= pd.DataFrame (corpusl)
+data = pd.DataFrame (corpusl)
 import numpy as np
 np.array(data[0]=='').sum()
 
@@ -75,7 +75,7 @@ np.array(data[0]=='').sum()
     
 corpusupper=[]
 for i in range(0,len(dataset.index)):
-    review= dataset['Review'][i].translate(str.maketrans('', '', string.punctuation))
+    review = dataset['Review'][i].translate(str.maketrans('', '', string.punctuation))
     corpusupper.append(review)
 
 import spacy
@@ -101,8 +101,19 @@ join = pd.concat([pd.DataFrame(corpus), pd.DataFrame(corpusl), pd.DataFrame(tagg
 
 join.columns = ['trans', 'tag1', 'tagml']
 
+for i in range (0, len(join.index)):
+    if (join.tagml[i]==''):
+        sentences = join.iloc[i,0]
+        if ' dot' in sentences:
+            before_keyword, keyword, after_keyword = sentences.partition('dot')
+            first, *middle, last = before_keyword.split()
+            join.tagml[i] =last
+
+
 join.tagml = np.where(join.tagml=='',  join.tag1, join.tagml)
 
+
+###################
 
 from spacy import displacy
 displacy.render (nlp(corpusupper[1]), style= 'ent')
